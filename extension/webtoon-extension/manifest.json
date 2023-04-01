@@ -2,13 +2,11 @@
   "manifest_version": 3,
   "name": "Webtoon Extension",
   "version": "0.0.1",
-  "content_scripts": [
-    {
+  "content_scripts": [{
       "js": ["scripts/homepage.js"],
       "css": ["style/style.css"],
       "matches": ["https://www.webtoons.com/*"]
-    }
-  ],
+    }],
   "icons": {
     "32": "favicon.ico"
   },
