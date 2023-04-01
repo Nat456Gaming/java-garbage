@@ -1,8 +1,8 @@
-var file = './programme.txt';
+const file = './Compiler/programme.txt';
 
-const contentFile = require('fs').readFileSync(file, "utf-8") ;
+const contentFile = require('fs').readFileSync(file, "utf-8");
 const lines = contentFile.split('\n');
-var rl = require('readline').createInterface({
+const rl = require('readline').createInterface({
     input : require('fs').createReadStream(file),
     output : process.stdout,
     terminal: false
@@ -14,9 +14,9 @@ let line = 0;
 rl.on('line', function (text) {
     if (text.trim() != ""){
         //console.log(text.trim());
-        output += decodeline(text.trim().toLowerCase()).join(" ")+"\n"
+        output += decodeline(text.trim().toLowerCase()).join(" ")+"\n";
     }else{
-        output += "\n"
+        output += "\n";
     }
     if (line == lines.length-1){
         console.log(output);
@@ -110,7 +110,7 @@ function calc(line){
  */
 function condition(call,line){
     let sign = ["==","!=","<<","<=",">>",">="];
-    let out = []
+    let out = [];
     sign.forEach((value,index) =>{
         if(line.includes(value)){
             let concout = concat(true,value,line);
@@ -141,7 +141,7 @@ function upcode(call,operator,values){
     if (call) operator += 16;
     if (isnumber(values[0])) operator += 128;
     if (isnumber(values[1])) operator += 64;
-    return (operator)
+    return operator;
 }
 
 /**
@@ -149,5 +149,5 @@ function upcode(call,operator,values){
  * @return {boolean} Is the input a number
  */
 function isnumber(input){
-    return ("01234567879".includes(input))
+    return "01234567879".includes(input);
 }

@@ -1,4 +1,4 @@
-var file = './programme.txt';
+var file = './Compiler/programme.txt';
 
 const contentFile = require('fs').readFileSync(file, "utf-8") ;
 const lines = contentFile.split('\n');
