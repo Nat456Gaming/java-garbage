@@ -24,6 +24,6 @@ if (header && false){
         next_link.setAttribute('title', 'NextEpisode');
         next_link.className = "next-ep-read";
         next_link.innerHTML = "NEXT";
-        document.getElementById("container").insertBefore(next_link, document.getElementById("_topBtn"))
+        document.getElementById("container").appendChild(next_link)
     }
 }
