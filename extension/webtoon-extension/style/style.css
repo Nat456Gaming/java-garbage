@@ -33,3 +33,19 @@
     border-radius: 16.5px;
     margin: 9px 4px 0px 0px;
 }
+
+.next-ep-read{
+    position: fixed;
+    z-index: 100;
+    bottom: 40px;
+    left: 37px;
+    height: 47px;
+    width: 48px;
+
+    color: #a3a3a3;
+    font-size: 150%;
+    text-align: center;
+    line-height: 50px;
+
+    border: solid #b5b5b5 1px;
+}
