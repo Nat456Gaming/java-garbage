@@ -1,0 +1,17 @@
+add: +
+minus: -
+AND: &
+OR: |
+NOT: !
+XOR: ^
+SHR: >
+SHL: <
+MUL: *
+MUL HIGH: µ
+
+equal: ==
+not equal: !=
+less: <<
+equal-less: <=
+greater: >>
+equal-greater: >=

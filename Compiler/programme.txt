@@ -1,0 +1,50 @@
+Interrupt interrupt
+
+def loop
+    reg0 = 0
+goto loop
+
+interrupt {
+    goif 70 == reg4 : up
+    goif 72 == reg4 : down
+}
+
+up {
+    display += 1
+}
+
+down{
+    display -= 1
+}
+
+
+
+reg_0 = 5 ** 10000000
+def start
+    reg_1 = time
+def test
+    if time >> reg_1: equal
+    goto test
+
+def equal
+    display += 1
+    goto 0
+
+
+
+reg0 = 1
+def loop
+reg2 = reg0 ++ reg1
+reg1 =reg0
+reg0 = reg2
+display = reg0
+ram = reg0
+address += 1
+goif address == 10 :test 
+goto loop
+
+test{
+    reg0=1
+    reg1= 0
+    address = 0
+}
