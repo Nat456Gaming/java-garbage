@@ -5,7 +5,7 @@ const lang = window.location.href.split("/")[3];
 let link = document.createElement('a');
 link.setAttribute('href', '/'+lang+'/favorite');
 link.setAttribute('title', 'Favorites');
-link.innerHTML = "+";
+link.innerHTML = "♥";
 
 if (header && false){
     link.className = "favorite-link";
