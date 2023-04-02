@@ -22,7 +22,7 @@ if (false && header){
         next_link.setAttribute('href', next_url);
         next_link.setAttribute('title', 'Next Episode');
         next_link.className = "next-ep-read";
-        next_link.innerHTML = "NEXT";
+        next_link.innerHTML = '<p class="next-btn">→</p> <p class="next-btn">NEXT</p>';
         document.getElementById("container").appendChild(next_link)
     }
 }

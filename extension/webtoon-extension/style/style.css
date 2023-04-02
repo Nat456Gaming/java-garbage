@@ -42,10 +42,15 @@
     height: 47px;
     width: 48px;
 
-    color: #a3a3a3;
-    font-size: 150%;
     text-align: center;
-    line-height: 50px;
 
     border: solid #b5b5b5 1px;
+}
+
+p.next-btn{
+    font-size: 150%;
+    color: #a3a3a3;
+    text-align: center;
+    height: 24px;
+    width: 47px;
 }
