@@ -31,13 +31,13 @@
     background-color: #252525;
     border: solid black 1px;
     border-radius: 16.5px;
-    margin: 9px 4px 0px 0px;
+    margin: 9px 9px 0px 0px;
 }
 
 .next-ep-read{
     position: fixed;
     z-index: 100;
-    bottom: 40px;
+    bottom: 109px;
     left: 37px;
     height: 47px;
     width: 48px;
@@ -47,10 +47,63 @@
     border: solid #b5b5b5 1px;
 }
 
+.next-ep-favorite-read{
+    position: fixed;
+    z-index: 100;
+    bottom: 40px;
+    left: 37px;
+    height: 47px;
+    width: 48px;
+
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 300%;
+
+    border: solid #b5b5b5 1px;
+}
+
 p.next-btn{
-    font-size: 150%;
     color: #a3a3a3;
     text-align: center;
     height: 24px;
     width: 47px;
+}
+
+p.next-btn.arrow{
+    font-size: 180%;
+    line-height: 30px;
+}
+
+p.next-btn.next{
+    font-size: 130%;
+    line-height: 20px;
+}
+
+.spi_area{
+    display: none;
+}
+
+span.lk_creators.on, #_challengeListTitle, #_webtoonListTitle, .foot_app, .recently_area, .foot_sns, .ranking_lst{
+    display: none;
+}
+
+#_webtoonList{
+    margin-top: 20px;
+}
+
+.snb li a{
+    line-height: 42px;
+}
+
+div.snb_wrap{
+    height: 40px;
+}
+
+div#footer{
+    margin-top: -150px;
+    min-height: 140px;
+}
+
+div#content{
+    padding-bottom: 100px;
 }
