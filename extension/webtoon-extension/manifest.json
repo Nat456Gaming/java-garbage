@@ -7,9 +7,6 @@
       "css": ["style/style.css"],
       "matches": ["https://www.webtoons.com/*"]
     }],
-  "icons": {
-    "32": "favicon.ico"
-  },
   "description": "Add some functionalities to Webtoon Online",
   "author": "nat456@gmail.com"
 }
