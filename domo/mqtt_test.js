@@ -6,7 +6,7 @@ const mqtt = require('mqtt')
  * EMQX's ws connection default port is 8083, wss is 8084
  * Note that you need to add a path after the connection address, such as /mqtt
  */
-const url = 'ws://broker.emqx.io:8083/mqtt'
+const url = 'mqtt://nat-serv/tasmota_83C121'
 /***
  * Node.js
  * Using MQTT over TCP with mqtt and mqtts protocols
@@ -20,30 +20,31 @@ const options = {
   clean: true,
   connectTimeout: 4000,
   // Authentication
-  clientId: 'emqx_test',
-  username: 'emqx_test',
-  password: 'emqx_test',
+  clientId: 'DVES_83C121',
+  username: 'admin',
+  password: 'admin',
 }
 const client  = mqtt.connect(url, options)
-/*client.on('connect', function () {
+client.on('connect', function () {
   console.log('Connected')
   // Subscribe to a topic
-  client.subscribe('test', function (err) {
+  client.subscribe('tasmota_83C121', function (err) {
     if (!err) {
       // Publish a message to a topic
       client.publish('test', 'Hello mqtt')
+      console.log("subscribed !")
     }
   })
 })
-
+/*
 // Receive messages
 client.on('message', function (topic, message) {
   // message is Buffer
   console.log(message.toString())
   client.end()
-})*/
+})
 
 client.on('message', function (topic, payload, packet) {
     // Payload is Buffer
     console.log(`Topic: ${topic}, Message: ${payload.toString()}, QoS: ${packet.qos}`)
-  })
+  })*/
