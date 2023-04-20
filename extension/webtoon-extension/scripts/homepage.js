@@ -24,14 +24,14 @@ if (header){
         next_link.setAttribute('title', 'Next Episode');
         next_link.className = "next-ep-read";
         next_link.innerHTML = '<p class="next-btn arrow">→</p> <p class="next-btn next">NEXT</p>';
-        document.getElementById("container").appendChild(next_link)
+        document.getElementById("container").appendChild(next_link);
     }else{
         let link2 = document.createElement('a');
         link2.setAttribute('href', '/'+lang+'/favorite');
         link2.setAttribute('title', 'Subscribed');
         link2.innerHTML = '<p style="line-height: 53px;">♥</p>';
         link2.className = "next-ep-favorite-read";
-        document.getElementById("container").appendChild(link2)
+        document.getElementById("container").appendChild(link2);
     }
 }
 
