@@ -16,12 +16,6 @@ if (false && header){
     const bar = document.getElementsByClassName("spi_area")[0];
     header_read.insertBefore(link, bar);
 
-    let link2 = document.createElement('a');
-    link2.setAttribute('href', '/'+lang+'/favorite');
-    link2.setAttribute('title', 'Subscribed');
-    link2.innerHTML = '<p style="line-height: 53px;">♥</p>';
-    link2.className = "next-ep-favorite-read";
-    document.getElementById("container").appendChild(link2)
 
     const next_url = document.getElementsByClassName("pg_next")[0].href;
     if(next_url){
@@ -31,6 +25,13 @@ if (false && header){
         next_link.className = "next-ep-read";
         next_link.innerHTML = '<p class="next-btn arrow">→</p> <p class="next-btn next">NEXT</p>';
         document.getElementById("container").appendChild(next_link)
+    }else{
+        let link2 = document.createElement('a');
+        link2.setAttribute('href', '/'+lang+'/favorite');
+        link2.setAttribute('title', 'Subscribed');
+        link2.innerHTML = '<p style="line-height: 53px;">♥</p>';
+        link2.className = "next-ep-favorite-read";
+        document.getElementById("container").appendChild(link2)
     }
 }
 
