@@ -35,4 +35,14 @@ if (header){
     }
 }
 
+/*this.addEventListener('keypress', event => {
+    if (event.key === "n") {
+        if(next_url){
+            window.location.href = next_url;
+        }else{
+            window.location.href = '/'+lang+'/favorite';
+        }
+    }
+  })*/
+
 document.getElementById("noticeArea").remove();
