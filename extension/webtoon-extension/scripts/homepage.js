@@ -4,14 +4,14 @@ link.setAttribute('href', '/'+lang+'/favorite');
 link.setAttribute('title', 'Subscribed');
 link.innerHTML = "♥";
 
-//const header = document.getElementById("header");
 const header_read = document.getElementById("_toolBarRightArea");
-if (false && header){
+/*const header = document.getElementById("header");
+if (header){
     link.className = "favorite-link";
     const bar = document.getElementsByClassName("bar")[0];
     const btn_bar = document.getElementsByClassName("sta")[0];
     btn_bar.insertBefore(link, bar);
-}else if (header_read){
+}else */if (header_read){
     link.className = "favorite-link-read";
     const bar = document.getElementsByClassName("spi_area")[0];
     header_read.insertBefore(link, bar);
