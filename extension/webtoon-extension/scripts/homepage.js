@@ -1,7 +1,7 @@
 const lang = window.location.href.split("/")[3];
 let link = document.createElement('a');
 link.setAttribute('href', '/'+lang+'/favorite');
-link.setAttribute('title', 'Subscribe');
+link.setAttribute('title', 'Subscribed');
 link.innerHTML = "♥";
 
 //const header = document.getElementById("header");
@@ -18,7 +18,7 @@ if (false && header){
 
     let link2 = document.createElement('a');
     link2.setAttribute('href', '/'+lang+'/favorite');
-    link2.setAttribute('title', 'Subscribe');
+    link2.setAttribute('title', 'Subscribed');
     link2.innerHTML = '<p style="line-height: 53px;">♥</p>';
     link2.className = "next-ep-favorite-read";
     document.getElementById("container").appendChild(link2)
