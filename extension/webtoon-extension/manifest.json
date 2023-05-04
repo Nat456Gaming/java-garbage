@@ -3,8 +3,8 @@
   "name": "Webtoon +",
   "version": "0.1.0",
   "content_scripts": [{
-      "js": ["scripts/homepage.js"],
-      "css": ["style/style.css"],
+      "js": ["webtoon/main.js"],
+      "css": ["webtoon/style.css"],
       "matches": ["https://www.webtoons.com/*"]
     }],
   "icons": {
