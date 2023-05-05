@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "Webtoon +",
+  "name": "Webtoon+",
   "version": "0.1.0",
   "content_scripts": [{
       "js": ["webtoon/main.js"],
       "css": ["webtoon/style.css"],
-      "matches": ["https://www.webtoons.com/*"]
+      "matches": ["https://*.webtoons.com/*"]
     }],
   "icons": {
     "16": "icon/icon16.png",
@@ -16,7 +16,7 @@
   "description": "Add some functionalities to Webtoon Online (Icon from ⓒ WEBTOON Entertainment Inc.)",
   "author": "nat456@gmail.com",
   "action": {
-    "default_title": "Webtoon + settings",
+    "default_title": "Webtoon+ settings",
     "default_popup": "options/options.html",
     "default_icon": {
       "16": "icon/icon16.png",
