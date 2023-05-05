@@ -79,39 +79,39 @@ p.next-btn.next{
     line-height: 20px;
 }
 
-.right_area .spi_area{
+body.no-btn .right_area .spi_area{
     display: none;
 }
 
-span.lk_creators.on, #_challengeListTitle, #_webtoonListTitle, .foot_app, .recently_area, .foot_sns, .ranking_lst{
+body.cleaner span.lk_creators.on, body.cleaner #_challengeListTitle, body.cleaner #_webtoonListTitle, body.cleaner .foot_app, body.cleaner .recently_area, body.cleaner .foot_sns, body.cleaner .ranking_lst{
     display: none;
 }
 
-#_webtoonList{
+body.cleaner #_webtoonList{
     margin-top: 20px;
 }
 
-.snb li a{
+body.cleaner .snb li a{
     line-height: 42px;
 }
 
-div.snb_wrap{
+body.cleaner div.snb_wrap{
     height: 40px;
 }
 
-div#footer{
+body.cleaner div#footer{
     margin-top: -150px;
     min-height: 140px;
 }
 
-div#content{
+body.cleaner div#content{
     padding-bottom: 100px;
 }
 
-ul.card_lst{
+body.cleaner ul.card_lst{
     width: 1350px;
 }
 
-div.card_wrap{
+body.cleaner div.card_wrap{
     width: 1350px;
 }
