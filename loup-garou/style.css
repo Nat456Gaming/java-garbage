@@ -1,0 +1,78 @@
+body {
+    background-color: rgb(255, 255, 255);
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0;
+}
+
+h1 {
+    font-size: 300%;
+    font-family: arial;
+    color: black;
+    margin: 0;
+}
+
+h2 {
+    font-size: 150%;
+    font-family: arial;
+    color: black;
+    margin: 0;
+}
+
+h3 {
+    font-size: 100%;
+    font-family: arial;
+    color: black;
+    margin: 0;
+}
+
+button {
+    outline: none;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    transition: 0.3s;
+}
+
+button:active {
+    transform: scale(0.96);
+    transition: 0.3s;
+}
+
+input[type="number"]{
+    width: 50px;
+}
+
+#home.pages {
+    display: flex;
+}
+
+#home div#home_container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #ddd;
+    border: solid black 2px ;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+#home button#start {
+    border-radius: 5px;
+    border: solid black 2px;
+}
+
+#home table#settings_container {
+    margin-bottom: 10px;
+}
+
+#home div#players_container {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#home div#players_container input{
+    margin-bottom: 2px;
+}
