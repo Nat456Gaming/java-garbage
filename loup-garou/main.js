@@ -16,8 +16,6 @@ function update_players_number(players){
         setCookie("players",players);
 
         document.getElementById("players_container").innerHTML = '';
-
-        
         for (let i = 1; i <= players; i++) {
             let player = document.createElement("input")
             player.setAttribute("type","text")
@@ -41,4 +39,9 @@ function update_roles_number(roles){
         old_roles = roles;
         setCookie("roles",roles);
     }
+}
+
+function start_game(){
+    document.getElementById("home").style.display = "none";
+    document.getElementById("game").style.display = "block";
 }
