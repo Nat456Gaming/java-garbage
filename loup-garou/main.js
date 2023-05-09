@@ -1,12 +1,18 @@
-if(getCookie("players")){
-    document.getElementById('players_number').value = getCookie(players);
-    document.getElementById('roles_number').value = getCookie(roles);
-}
+window.onload = () => {
+    if(getCookie("players")){
+        document.getElementById('players_number').value = Number(getCookie("players"));
+        document.getElementById('roles_number').value = Number(getCookie("roles"));
+    }
+};
 
 let old_players = 0;
-setInterval(function() { update_players_number(document.getElementById('players_number').value); }, 100);
+let old_roles = 0;
+let old_players_names = ["","","","","","","","","","","","","","","","","","","",""]
+let players_list = [];
+setInterval(() => { update(); }, 100);
 
-function update_players_number(players){
+function update(){
+    let players = document.getElementById('players_number').value;
     if (players != old_players){
         players = Math.round(players);
         if (players > 10) players = 10;
@@ -14,7 +20,8 @@ function update_players_number(players){
         document.getElementById('players_number').value = players;
         old_players = players;
         setCookie("players",players);
-
+        
+        players_list = [];
         document.getElementById("players_container").innerHTML = '';
         for (let i = 1; i <= players; i++) {
             let player = document.createElement("input");
@@ -22,14 +29,11 @@ function update_players_number(players){
             player.setAttribute("placeholder","Joueur "+i);
             player.setAttribute("id","player"+i);
             document.getElementById('players_container').appendChild(player);
+            players_list.push("player"+i);
         }
+        update_players();
     }
-}
-
-let old_roles = 0;
-setInterval(function() { update_roles_number(document.getElementById('roles_number').value); }, 100);
-
-function update_roles_number(roles){
+    let roles = document.getElementById('roles_number').value
     if (roles != old_roles){
         roles = Math.round(roles);
         if (roles > 3) roles = 3;
@@ -38,6 +42,20 @@ function update_roles_number(roles){
         old_roles = roles;
         setCookie("roles",roles);
     }
+    players_list.forEach((id,pos) => {
+        if (document.getElementById(id).value !== old_players_names[pos]){
+            old_players_names[pos] = document.getElementById(id).value;
+            setCookie(id,document.getElementById(id).value);
+        }
+    });
+}
+
+function update_players(){
+    players_list.forEach(id => {
+        if(getCookie(id)){
+            document.getElementById(id).value = getCookie(id);
+        }
+    })
 }
 
 function start_game(){

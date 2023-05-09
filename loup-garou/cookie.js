@@ -6,7 +6,7 @@
 function setCookie(cName, cValue, exDays = 2147483647) {
 	const d = new Date();
 	d.setTime(d.getTime() + exDays * 24 * 60 * 60 * 1000);
-	document.cookie = cName + "=" + cValue + "; " + "expires=" + d.toUTCString() + "; path=/onearth";
+	document.cookie = cName + "=" + cValue + "; " + "expires=" + d.toUTCString();
     return ;
 }
 
