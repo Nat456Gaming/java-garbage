@@ -7,7 +7,7 @@ window.onload = () => {
 
 let old_players = 0;
 let old_roles = 0;
-let old_players_names = ["","","","","","","","","","","","","","","","","","","",""]
+let old_players_names = [];
 let players_list = [];
 setInterval(() => { update(); }, 100);
 
@@ -15,8 +15,8 @@ function update(){
     let players = document.getElementById('players_number').value;
     if (players != old_players){
         players = Math.round(players);
-        if (players > 10) players = 10;
-        else if (players < 4) players = 4;
+        if (players > 10) players = players % 10;
+        if (players < 4) players = 4;
         document.getElementById('players_number').value = players;
         old_players = players;
         setCookie("players",players);
@@ -31,13 +31,15 @@ function update(){
             document.getElementById('players_container').appendChild(player);
             players_list.push("player"+i);
         }
-        update_players();
+        players_list.forEach(id => {
+            if(getCookie(id)) document.getElementById(id).value = getCookie(id);
+        })
     }
-    let roles = document.getElementById('roles_number').value
+    let roles = document.getElementById('roles_number').value;
     if (roles != old_roles){
         roles = Math.round(roles);
-        if (roles > 3) roles = 3;
-        else if (roles < 1) roles = 1;
+        if (roles > 3) roles = roles % 3;
+        if (roles < 1) roles = 1;
         document.getElementById('roles_number').value = roles;
         old_roles = roles;
         setCookie("roles",roles);
@@ -48,14 +50,6 @@ function update(){
             setCookie(id,document.getElementById(id).value);
         }
     });
-}
-
-function update_players(){
-    players_list.forEach(id => {
-        if(getCookie(id)){
-            document.getElementById(id).value = getCookie(id);
-        }
-    })
 }
 
 function start_game(){
