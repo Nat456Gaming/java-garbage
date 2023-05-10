@@ -42,20 +42,23 @@ input[type="number"]{
     width: 50px;
 }
 
+.center{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
 #home.pages {
     display: flex;
 }
 
 #home div#home_container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
     background-color: #ddd;
     border: solid black 2px ;
     border-radius: 10px;
     padding: 10px;
-    text-align: center;
 }
 
 #home button#start {
@@ -75,4 +78,17 @@ input[type="number"]{
 
 #home div#players_container input{
     margin-bottom: 2px;
+}
+
+#game button.btn_player{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#game h2.player-name{
+    margin-top: 5px;
 }
