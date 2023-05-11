@@ -70,16 +70,16 @@ function start_game(){
 }
 
 function create_card(player,total){
-    let pos = circumference()/total*player;
+    let pos = 360/total*player;
     let angle = (360/total)*player //calc_angle(circumference()/total*player) 
     let card = document.createElement("button");
     card.setAttribute("class","btn_player");
     card.setAttribute("id","btn_player"+player);
     card.style.position = "absolute";
-    //card.style.bottom = String(window.innerHeight/2 + Math.cos(angle*Math.PI/180)*window.innerHeight/3 - 50)+"px";
-    //card.style.left = String(window.innerWidth/2 + Math.sin(angle*Math.PI/180)*window.innerWidth/3 - 50)+"px";
-    card.style.bottom = String(window.innerHeight/2 + window.innerHeight/3*Math.sin(pos) - 50);
-    card.style.left = String(window.innerWidth/2 + window.innerWidth/3*Math.cos(pos) - 50);
+    card.style.bottom = String(window.innerHeight/2 + Math.cos(angle*Math.PI/180)*window.innerHeight/3 - 50)+"px";
+    card.style.left = String(window.innerWidth/2 + Math.sin(angle*Math.PI/180)*window.innerWidth/3 - 50)+"px";
+    //card.style.bottom = String(window.innerHeight/2 + ellipse(pos)[1] - 50)+"px";
+    //card.style.left = String(window.innerWidth/2 + ellipse(pos)[0] - 50)+"px";
     card.style.zIndex = player;
     card.style.transform =  "rotate("+String(angle+180)+"deg)";
     card.innerHTML ='<img id="img_player'+player+'" src="images/back.png"><h2 class="player-name">'+document.getElementById("player"+String(player)).value+'</h2>';
@@ -94,4 +94,10 @@ function circumference(){
     let a = window.innerHeight/3
     let b = window.innerWidth/3
     return Math.PI*(3*(a+b)-Math.sqrt((3*a+b)*(a+3*b)))
+}
+
+function ellipse(pos, a = window.innerWidth/3, b = window.innerHeight/3){
+    let x = a * Math.sqrt(1-((pos/b)**2))
+    let y = b * Math.sqrt(1-(x**2)/(a**2))
+    return [x,y]
 }
