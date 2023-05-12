@@ -70,6 +70,8 @@ function start_game(){
     }
 }
 
+
+
 function create_card(player,total){
     let W = window.innerWidth
     let H = window.innerHeight

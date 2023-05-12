@@ -22,7 +22,6 @@ function center_button(){
             console.log("Nobody has been voted");
             document.getElementById("center_button").style.display = "none";
             step = 1;
-            
     }
 }
 
