@@ -1,7 +1,7 @@
 window.onload = () => {
     if(getCookie("players")) document.getElementById('players_number').value = Number(getCookie("players"));
     if(getCookie("roles")) document.getElementById('roles_number').value = Number(getCookie("roles"));
-    update()
+    update();
 };
 
 let old_players = 0;
@@ -64,40 +64,50 @@ function start_game(){
         }
         document.getElementById("home").style.display = "none";
         document.getElementById("game").style.display = "block";
+        start();
     }else{
         alert("Nomme bien tous les joueurs !")
     }
 }
 
 function create_card(player,total){
-    let pos = 360/total*player;
-    let angle = (360/total)*player //calc_angle(circumference()/total*player) 
-    let card = document.createElement("button");
-    card.setAttribute("class","btn_player");
-    card.setAttribute("id","btn_player"+player);
-    card.style.position = "absolute";
-    card.style.bottom = String(window.innerHeight/2 + Math.cos(angle*Math.PI/180)*window.innerHeight/3 - 50)+"px";
-    card.style.left = String(window.innerWidth/2 + Math.sin(angle*Math.PI/180)*window.innerWidth/3 - 50)+"px";
-    //card.style.bottom = String(window.innerHeight/2 + ellipse(pos)[1] - 50)+"px";
-    //card.style.left = String(window.innerWidth/2 + ellipse(pos)[0] - 50)+"px";
+    let W = window.innerWidth
+    let H = window.innerHeight
+    if (H<W) W = H;
+    else H = W;
+    let angle = (Math.PI*2/total)*player; //calc_angle(player,total);
+    let card = document.createElement("div");
+    card.setAttribute("class","div-btn-player");
+    //card.style.position = "absolute";
+    card.style.left = String(window.innerWidth/2 + Math.round(calc_coord(angle)[0]*W/3) - 50)+"px";
+    card.style.bottom = String(window.innerHeight/2 + Math.round(calc_coord(angle)[1]*H/3) - 50)+"px";
     card.style.zIndex = player;
-    card.style.transform =  "rotate("+String(angle+180)+"deg)";
-    card.innerHTML ='<img id="img_player'+player+'" src="images/back.png"><h2 class="player-name">'+document.getElementById("player"+String(player)).value+'</h2>';
+    card.style.transform =  "rotate("+String(-angle-Math.PI/2)+"rad) scale("+String(W*H/2093230+159323/418646)+")";
+    card.innerHTML ='<button class="btn-player" id="btn_player"'+player+' onclick="player_pressed('+player+')"><img id="img_player'+player+'" src="images/back.png"><h2 class="player-name">'+document.getElementById("player"+String(player)).value+'</h2></button>';
     document.getElementById('game_player_container').appendChild(card);
 }
 
-function calc_angle(pos){
-    return Math.atan2(window.innerHeight/3*Math.sin(pos),window.innerWidth/3*Math.cos(pos))
-}
-
-function circumference(){
-    let a = window.innerHeight/3
-    let b = window.innerWidth/3
-    return Math.PI*(3*(a+b)-Math.sqrt((3*a+b)*(a+3*b)))
-}
-
-function ellipse(pos, a = window.innerWidth/3, b = window.innerHeight/3){
-    let x = a * Math.sqrt(1-((pos/b)**2))
-    let y = b * Math.sqrt(1-(x**2)/(a**2))
+function calc_coord(angle){
+    let x = Math.cos(angle)//*(-10*Math.abs(Math.sin(angle))/125*Math.PI+1)
+    let y = Math.sin(angle)//*(-10*Math.abs(Math.cos(angle))/125*Math.PI+1)
     return [x,y]
 }
+/*
+function calc_angle(player, total, W = window.innerWidth/2, H = window.innerHeight/2){
+    let c = Math.sqrt(W**2+H**2);
+    console.log(c)
+    let pos = 4*c/total*player;
+    let side = Math.floor(pos/c);
+    let x = 0;
+    let y = 1;
+    if (side != 4){
+        let d = pos%(4*c);
+        if (side == 0 || side == 2) d = c-d;
+        console.log(d)
+        x = -(c*W/d-W);
+        y = -(c*H/d-H);
+        if (y==0) y = 1;
+    }
+    //console.log(x," - ",y, " - ",side)
+    return Math.atan(y/x)+side*Math.PI/2;
+}*/

@@ -30,12 +30,12 @@ button {
     outline: none;
     border: none;
     background-color: rgba(0, 0, 0, 0);
-    transition: 0.3s;
+    transition: 0.1s;
 }
 
 button:active {
     transform: scale(0.96);
-    transition: 0.3s;
+    transition: 0.1s;
 }
 
 input[type="number"]{
@@ -80,7 +80,15 @@ input[type="number"]{
     margin-bottom: 2px;
 }
 
-#game button.btn_player{
+
+
+#game div.div-btn-player{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+
+#game button.btn-player{
     width: 100px;
     height: 100px;
     display: flex;
@@ -91,4 +99,9 @@ input[type="number"]{
 
 #game h2.player-name{
     margin-top: 5px;
+}
+
+#game button#center_button {
+    border-radius: 5px;
+    border: solid black 2px;
 }
