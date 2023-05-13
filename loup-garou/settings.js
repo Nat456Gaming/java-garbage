@@ -73,27 +73,55 @@ function start_game(){
 
 
 function create_card(player,total){
-    let W = window.innerWidth
-    let H = window.innerHeight
-    if (H<W) W = H;
-    else H = W;
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    /*if (H<W) W = H;
+    else H = W;*/
     let angle = (Math.PI*2/total)*player; //calc_angle(player,total);
     let card = document.createElement("div");
     card.setAttribute("class","div-btn-player");
     //card.style.position = "absolute";
-    card.style.left = String(window.innerWidth/2 + Math.round(calc_coord(angle)[0]*W/3) - 50)+"px";
-    card.style.bottom = String(window.innerHeight/2 + Math.round(calc_coord(angle)[1]*H/3) - 50)+"px";
+    card.style.left = String(window.innerWidth/2 + Math.round(square_coord(player, total, W, H)/*circle_coord(angle,W,H)*/[0]) - 50)+"px";
+    card.style.bottom = String(window.innerHeight/2 + Math.round(square_coord(player, total, W, H)/*circle_coord(angle,W,H)*/[1]) - 50)+"px";
     card.style.zIndex = player;
-    card.style.transform =  "rotate("+String(-angle-Math.PI/2)+"rad) scale("+String(W*H/2093230+159323/418646)+")";
+    card.style.transform =  "rotate("+String(/*-angle-Math.PI/2*/square_coord(player, total, W, H)[2])+"rad) scale("+String(calc_scale(W,H))+")";
     card.innerHTML ='<button class="btn-player" id="btn_player"'+player+' onclick="player_pressed('+player+')"><img id="img_player'+player+'" src="images/back.png"><h2 class="player-name">'+document.getElementById("player"+String(player)).value+'</h2></button>';
     document.getElementById('game_player_container').appendChild(card);
 }
 
-function calc_coord(angle){
-    let x = Math.cos(angle)//*(-10*Math.abs(Math.sin(angle))/125*Math.PI+1)
-    let y = Math.sin(angle)//*(-10*Math.abs(Math.cos(angle))/125*Math.PI+1)
-    return [x,y]
+function circle_coord(angle, W, H){
+    let x = Math.cos(angle)*W/3; //*(-10*Math.abs(Math.sin(angle))/125*Math.PI+1)
+    let y = Math.sin(angle)*H/3; //*(-10*Math.abs(Math.cos(angle))/125*Math.PI+1)
+    return [x,y];
 }
+
+function square_coord(player, total, Width, Height){
+    let W = Width
+    let H = Height
+    if (W<=H){
+        W = Height
+        H = Width
+    }
+    let x = W/Math.round(total/2)*(player-Math.round(total/2)/2-0.5)
+    let y = -H/3.5;
+    let angle = 0;
+    if (player > Math.round(total/2)){
+        x = W/(total-Math.round(total/2))*(player-Math.round(total/2)-(total-Math.round(total/2))/2-0.5)
+        y = H/3.5;
+        angle = Math.PI;
+    }
+    if (Width>=Height) return [x,y,angle];
+    else{
+        document.getElementById("center_button").style.transform = "rotate("+String(Math.PI/2)+"rad)"
+        return [y,x,angle+Math.PI/2];
+    } 
+}
+
+function calc_scale(W, H){
+    //return W*H/2093230+159323/418646
+    return W*H/2061400+5/22
+}
+
 /*
 function calc_angle(player, total, W = window.innerWidth/2, H = window.innerHeight/2){
     let c = Math.sqrt(W**2+H**2);
