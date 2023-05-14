@@ -12,6 +12,8 @@ setInterval(() => { update(); }, 100);
 
 function update(){
     let players = document.getElementById('players_number').value;
+    let roles = document.getElementById('roles_number').value;
+
     if (players != old_players){
         players = Math.round(players);
         if (players > 10) players = players % 10;
@@ -19,7 +21,8 @@ function update(){
         document.getElementById('players_number').value = players;
         old_players = players;
         setCookie("players",players);
-        
+        if (players < 8 && roles == 1) document.getElementById('roles_number').value = 2
+
         players_list = [];
         document.getElementById("players_container").innerHTML = '';
         for (let i = 1; i <= players; i++) {
@@ -34,10 +37,11 @@ function update(){
             if(getCookie(id)) document.getElementById(id).value = getCookie(id);
         })
     }
-    let roles = document.getElementById('roles_number').value;
+    
     if (roles != old_roles){
         roles = Math.round(roles);
         if (roles > 3) roles = roles % 3;
+        if (roles == 1 && players < 8 ) roles = 2;
         if (roles < 1) roles = 1;
         document.getElementById('roles_number').value = roles;
         old_roles = roles;
