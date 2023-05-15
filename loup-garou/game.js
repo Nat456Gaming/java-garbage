@@ -1,5 +1,6 @@
 let step = 0; //0 is beginning, 1 is night, 2 is morning, 3 is vote
-let night = "wolf"; 
+let night = "wolf";
+
 
 function start(){
     step = 0;

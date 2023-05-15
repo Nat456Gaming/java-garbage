@@ -1,9 +1,15 @@
 window.onload = () => {
     if(getCookie("players")) document.getElementById('players_number').value = Number(getCookie("players"));
     if(getCookie("roles")) document.getElementById('roles_number').value = Number(getCookie("roles"));
+    if(! getCookie("player_names")){
+        let names = [""];
+        for (let i = 0; i < 19; i++) names.push("");
+        setCookie("player_names",JSON.stringify(names));
+    }
     update();
 };
 
+let lol = 42;
 let old_players = 0;
 let old_roles = 0;
 let old_players_names = [];
@@ -33,8 +39,8 @@ function update(){
             document.getElementById('players_container').appendChild(player);
             players_list.push("player"+i);
         }
-        players_list.forEach(id => {
-            if(getCookie(id)) document.getElementById(id).value = getCookie(id);
+        players_list.forEach((id,pos) => {
+            if(getCookie("player_names")) document.getElementById(id).value = JSON.parse(getCookie("player_names"))[pos];
         })
     }
     
@@ -48,9 +54,16 @@ function update(){
         setCookie("roles",roles);
     }
     players_list.forEach((id,pos) => {
-        if (document.getElementById(id).value !== old_players_names[pos]){
-            old_players_names[pos] = document.getElementById(id).value;
-            setCookie(id,document.getElementById(id).value);
+        let name = document.getElementById(id).value
+        if (name !== old_players_names[pos]){
+            if (name.includes(";")){
+                document.getElementById(id).value = old_players_names[pos]
+            }else{
+                old_players_names[pos] = name;
+                let names = JSON.parse(getCookie("player_names"));
+                names[pos] = name;
+                setCookie("player_names",JSON.stringify(names));
+            }
         }
     });
 }
@@ -81,22 +94,14 @@ function create_card(player,total){
     let H = window.innerHeight;
     /*if (H<W) W = H;
     else H = W;*/
-    let angle = (Math.PI*2/total)*player; //calc_angle(player,total);
     let card = document.createElement("div");
     card.setAttribute("class","div-btn-player");
-    //card.style.position = "absolute";
-    card.style.left = String(window.innerWidth/2 + Math.round(square_coord(player, total, W, H)/*circle_coord(angle,W,H)*/[0]) - 50)+"px";
-    card.style.bottom = String(window.innerHeight/2 + Math.round(square_coord(player, total, W, H)/*circle_coord(angle,W,H)*/[1]) - 50)+"px";
+    card.style.left = String(window.innerWidth/2 + Math.round(square_coord(player, total, W, H)[0]) - 50)+"px";
+    card.style.bottom = String(window.innerHeight/2 + Math.round(square_coord(player, total, W, H)[1]) - 50)+"px";
     card.style.zIndex = player;
-    card.style.transform =  "rotate("+String(/*-angle-Math.PI/2*/square_coord(player, total, W, H)[2])+"rad) scale("+String(calc_scale(W,H))+")";
+    card.style.transform =  "rotate("+String(square_coord(player, total, W, H)[2])+"rad) scale("+String(calc_scale(W,H))+")";
     card.innerHTML ='<button class="btn-player" id="btn_player"'+player+' onclick="player_pressed('+player+')"><img id="img_player'+player+'" src="images/back.png"><h2 class="player-name">'+document.getElementById("player"+String(player)).value+'</h2></button>';
     document.getElementById('game_player_container').appendChild(card);
-}
-
-function circle_coord(angle, W, H){
-    let x = Math.cos(angle)*W/3; //*(-10*Math.abs(Math.sin(angle))/125*Math.PI+1)
-    let y = Math.sin(angle)*H/3; //*(-10*Math.abs(Math.cos(angle))/125*Math.PI+1)
-    return [x,y];
 }
 
 function square_coord(player, total, Width, Height){
@@ -114,19 +119,31 @@ function square_coord(player, total, Width, Height){
         y = H/3.5;
         angle = Math.PI;
     }
-    if (Width>=Height) return [x,y,angle];
-    else{
+    if (Width>=Height){
+        return [x,y,angle];
+    }else{
         document.getElementById("center_button").style.transform = "rotate("+String(Math.PI/2)+"rad)"
         return [y,x,angle+Math.PI/2];
     } 
 }
 
 function calc_scale(W, H){
-    //return W*H/2093230+159323/418646
     return W*H/2061400+5/22
 }
 
 /*
+let angle = (Math.PI*2/total)*player;
+
+function circle_coord(angle, W, H){
+    let x = Math.cos(angle)*W/3; //*(-10*Math.abs(Math.sin(angle))/125*Math.PI+1)
+    let y = Math.sin(angle)*H/3; //*(-10*Math.abs(Math.cos(angle))/125*Math.PI+1)
+    return [x,y];
+}
+
+function calc_scale(W, H){
+    return W*H/2093230+159323/418646
+}
+
 function calc_angle(player, total, W = window.innerWidth/2, H = window.innerHeight/2){
     let c = Math.sqrt(W**2+H**2);
     console.log(c)

@@ -9,11 +9,17 @@
         <script src="settings.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
-        <meta name="description" content="Paramétrer votre partie de loup-garou.">
+        <meta name="description" content="Jouez au Loup-Garou, mais sans la pénibilité des cartes et d'un maitre du jeu.">
     </head>
     <body>
         <section id="home" class="pages" style="display:block;">
             <div id="home_container" class="center">
+                <h3>Style de partie:</h3>
+                <div id="game_style_container">
+                    <h3>Débat</h3>
+                    <input type="range" min="1" max="4" value="2" id="game_style">
+                    <h3>Action</h3>
+                </div>
                 <table id="settings_container"><tbody>
                     <tr><th width="70%"></th><th width="30%"></th></tr>
                     <tr>
