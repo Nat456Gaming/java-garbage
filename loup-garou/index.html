@@ -2,11 +2,11 @@
 <html lang="fr">
     <head>
         <title>Loup-Garou</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="icon" href="images/back.png">
-        <script src="cookie.js"></script>
-        <script src="game.js"></script>
-        <script src="settings.js"></script>
+        <link rel="stylesheet" href="style.css" type="text/css">
+        <link rel="icon" href="images/back.png" type="image/png">
+        <script src="cookie.js" type="text/javascript"></script>
+        <script src="game.js" type="text/javascript"></script>
+        <script src="settings.js" type="text/javascript"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
         <meta name="description" content="Jouez au Loup-Garou, mais sans la pénibilité des cartes et d'un maitre du jeu.">
@@ -17,29 +17,29 @@
                 <h3>Style de partie:</h3>
                 <div id="game_style_container">
                     <h3>Débat</h3>
-                    <input type="range" min="1" max="4" value="2" id="game_style">
+                    <input type="range" id="game_style" aria-label="Style de partie" min="1" max="4" value="2">
                     <h3>Action</h3>
                 </div>
                 <table id="settings_container"><tbody>
                     <tr><th width="70%"></th><th width="30%"></th></tr>
                     <tr>
                         <td><h3>Nombre de joueurs</h3></td>
-                        <td><input type="number" id="players_number" aria-label="nombre de joueurs" min="4" max="10" value ="4"></td>
+                        <td><input type="number" id="players_number" aria-label="Nombre de joueurs" min="4" max="10" value ="4"></td>
                     </tr>
                     <tr>
                         <td><h3>Nombre de roles par joueur</h3></td>
-                        <td><input type="number" id="roles_number" aria-label="nombre de roles par joueur" min="1" max="3" value="1"></td>
+                        <td><input type="number" id="roles_number" aria-label="Nombre de roles par joueur" min="1" max="3" value="1"></td>
                     </tr>
                 </tbody></table>
                 <div id="players_container">
                     <!-- PLAYERS INPUTS GENERATED IN JS -->
                 </div>
-                <button onclick="start_game()" id="start"><h2>Start</h2></button>
+                <button type="submit" onclick="start_game(); return false;" id="start"><h2>Start</h2></button>
             </div>
         </section>
         <section id="game" class="pages" style="display:none;">
             <div id="game_container" class="center">
-                <button onclick="center_button()" id="center_button"><h1 id="center_button_text">Next</h1></button>
+                <button type="button" onclick="center_button()" id="center_button"><h1 id="center_button_text">Next</h1></button>
             </div>
             <div id="game_player_container">
                 <!-- PLAYERS CARDS GENERATED IN JS -->

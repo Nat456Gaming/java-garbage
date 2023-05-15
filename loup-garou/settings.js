@@ -1,6 +1,7 @@
 window.onload = () => {
     if(getCookie("players")) document.getElementById('players_number').value = Number(getCookie("players"));
     if(getCookie("roles")) document.getElementById('roles_number').value = Number(getCookie("roles"));
+    if(getCookie("game_style")) document.getElementById('game_style').value = Number(getCookie("game_style"));
     if(! getCookie("player_names")){
         let names = [""];
         for (let i = 0; i < 19; i++) names.push("");
@@ -9,7 +10,7 @@ window.onload = () => {
     update();
 };
 
-let lol = 42;
+let old_game_style = 0;
 let old_players = 0;
 let old_roles = 0;
 let old_players_names = [];
@@ -19,6 +20,7 @@ setInterval(() => { update(); }, 100);
 function update(){
     let players = document.getElementById('players_number').value;
     let roles = document.getElementById('roles_number').value;
+    let game_style = document.getElementById("game_style").value;
 
     if (players != old_players){
         players = Math.round(players);
@@ -53,6 +55,12 @@ function update(){
         old_roles = roles;
         setCookie("roles",roles);
     }
+
+    if (game_style != old_game_style){
+        setCookie("game_style",game_style)
+        old_game_style = game_style
+    }
+
     players_list.forEach((id,pos) => {
         let name = document.getElementById(id).value
         if (name !== old_players_names[pos]){
