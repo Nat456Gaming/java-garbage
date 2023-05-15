@@ -76,8 +76,8 @@ function start_game(){
         }
     }
     if (test){
-        for (let i = 1; i <= getCookie("players"); i++) {
-            create_card(i,getCookie("players"));
+        for (let i = 1; i <= document.getElementById('players_number').value; i++) {
+            create_card(i,document.getElementById('players_number').value);
         }
         document.getElementById("home").style.display = "none";
         document.getElementById("game").style.display = "block";
