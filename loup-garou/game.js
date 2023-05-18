@@ -49,13 +49,18 @@ function player_pressed(player){
 function is_game_finished(){
     let village_winning = true;
     let wolves_winning = true;
+    let alive = [];
     players_list.forEach(player => {
         if (player.role == "wolf" || player.is_infected) village_winning = false;
         else wolves_winning = false;
+        if (player.role){
+            alive.push(player.name);
+        }
     });
+    if (alive.length == 1) return alive[0];
     if (village_winning) return "village";
-    else if (wolves_winning) return "wolves";
-    else return false;
+    if (wolves_winning) return "wolves";
+    return false;
 }
 
 function kill(nb_player, try_married = true){
