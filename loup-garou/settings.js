@@ -90,15 +90,17 @@ function start_game(){
         for (let i = 1; i <= document.getElementById('players_number').value; i++) {
             create_card(i,document.getElementById('players_number').value);
             let player = {
-                name : document.getElementById('player'+i).value,
+                name : String(document.getElementById('player'+i).value),
                 role : "wolf",
-                lifes : document.getElementById("roles_number").value,
+                lifes : Number(document.getElementById("roles_number").value)-1,
                 is_killed : false,
                 is_protected : false,
-                married_to : false
+                is_infected : false,
+                married_to : Number(false)
             }
             players_list.push(player);
         }
+        setCookie("players_list",JSON.stringify(players_list));
         document.getElementById("home").style.display = "none";
         document.getElementById("game").style.display = "block";
         start();
@@ -120,7 +122,7 @@ function create_card(player,total){
     card.style.bottom = String(window.innerHeight/2 + Math.round(square_coord(player, total, W, H)[1]) - 50)+"px";
     card.style.zIndex = player;
     card.style.transform =  "rotate("+String(square_coord(player, total, W, H)[2])+"rad) scale("+String(calc_scale(W,H))+")";
-    card.innerHTML ='<button class="btn-player" id="btn_player"'+player+' onclick="player_pressed('+player+')"><img id="img_player'+player+'" src="images/back.png"><h2 class="player-name">'+document.getElementById("player"+String(player)).value+'</h2></button>';
+    card.innerHTML ='<button class="btn-player" id="btn_player'+player+'" onclick="player_pressed('+player+')"><img id="img_player'+player+'" src="images/back.png" alt="player N°'+player+'"><h2 class="player-name">'+document.getElementById("player"+String(player)).value+'</h2></button>';
     document.getElementById('game_player_container').appendChild(card);
 }
 

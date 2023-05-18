@@ -28,7 +28,7 @@ function center_button(){
 function player_pressed(player){
     switch (step){
         case 0:
-            console.log("Player "+player);
+            console.log(JSON.parse(getCookie("players_list"))[player-1]);
             break;
         case 1:
             switch (night){
@@ -44,4 +44,38 @@ function player_pressed(player){
             console.log("Player "+player+" has been voted");
             step = 1;
     }
+}
+
+function is_game_finished(){
+    let village_winning = true;
+    let wolves_winning = true;
+    players_list.forEach(player => {
+        if (player.role == "wolf" || player.is_infected) village_winning = false;
+        else wolves_winning = false;
+    });
+    if (village_winning) return "village";
+    else if (wolves_winning) return "wolves";
+    else return false;
+}
+
+function kill(nb_player, try_married = true){
+    let player = players_list[nb_player-1]
+    if (player.lifes > 0){
+        for (let i = 0; i > 20; i++){
+            player.role = "new-role";
+            if (! is_game_finished){
+                break;
+            }
+        }
+    }else player.role = false;
+    game_end(is_game_finished());
+    if (player.married_to && try_married){
+        kill(player.married_to,false);
+    }
+}
+
+function game_end(winner){
+    if (winner){
+        console.log(winner+" ont gagnés !");
+    }else return ;
 }
