@@ -1,3 +1,9 @@
+const max_players = 10;
+const min_players = 4;
+
+const max_roles = 20;
+const min_roles = 8;
+
 window.onload = () => {
     if(getCookie("player_number")) document.getElementById('players_number').value = Number(getCookie("player_number"));
     if(getCookie("roles_per_player")) document.getElementById('roles_number').value = Number(getCookie("roles_per_player"));
@@ -8,6 +14,10 @@ window.onload = () => {
         setCookie("player_names",JSON.stringify(names));
     }
     update();
+    if(getCookie("players_list")){
+        players_list = JSON.parse(getCookie("players_list"));
+        start_game(true);
+    }
 };
 
 let players_list = [];
@@ -25,13 +35,13 @@ function update(){
 
     if (players != old_players){
         players = Math.round(players);
-        if (players > 10) players = players % 10;
-        if (players < 4) players = 4;
+        if (players > max_players) players = players % 10;
+        if (players < min_players) players = players + 10;
         document.getElementById('players_number').value = players;
         old_players = players;
         setCookie("player_number",players);
-        if (players < 8 && roles == 1) document.getElementById('roles_number').value = 2
-        if (players > 6 && roles == 3) document.getElementById('roles_number').value = 2
+        if (players*roles < min_roles) document.getElementById('roles_number').value = 2
+        if (players*roles > max_roles) document.getElementById('roles_number').value = 2
 
         setup_list = [];
         document.getElementById("players_container").innerHTML = '';
@@ -51,8 +61,8 @@ function update(){
     if (roles != old_roles){
         roles = Math.round(roles);
         if (roles > 3) roles = roles % 3;
-        if (roles == 1 && players < 8 ) roles = 2;
-        if (roles == 3 && players > 6 ) roles = 2;
+        if (players*roles < min_roles) roles = 2;
+        if (players*roles > max_roles) roles = 2;
         if (roles < 1) roles = 1;
         document.getElementById('roles_number').value = roles;
         old_roles = roles;
@@ -79,7 +89,7 @@ function update(){
     });
 }
 
-function start_game(){
+function start_game(reload = false){
     let test = true
     for (let i = 1; i <= document.getElementById('players_number').value; i++) {
         if (! document.getElementById('player'+i).value){
@@ -87,25 +97,40 @@ function start_game(){
         }
     }
     if (test){
-        for (let i = 1; i <= document.getElementById('players_number').value; i++) {
-            create_card(i,document.getElementById('players_number').value);
-            let player = {
-                name : String(document.getElementById('player'+i).value),
-                role : "wolf",
-                lifes : Number(document.getElementById("roles_number").value)-1,
-                is_killed : false,
-                is_protected : false,
-                is_infected : false,
-                married_to : Number(false)
+        if(! reload){
+            players_list = [];
+            for (let i = 1; i <= document.getElementById('players_number').value; i++) {
+                let player = {
+                    name : String(document.getElementById('player'+i).value),
+                    role : "wolf",
+                    lifes : Number(document.getElementById("roles_number").value)-1,
+                    is_killed : false,
+                    is_protected : false,
+                    is_infected : false,
+                    married_to : Number(false)
+                }
+                players_list.push(player);
             }
-            players_list.push(player);
+            setCookie("players_list",JSON.stringify(players_list));
         }
-        setCookie("players_list",JSON.stringify(players_list));
+        for (let i = 1; i <= players_list.length; i++) {
+            create_card(i,players_list.length);
+        }
         document.getElementById("home").style.display = "none";
         document.getElementById("game").style.display = "block";
         start();
     }else{
-        alert("Nomme bien tous les joueurs !")
+        alert("Nomme bien tous les joueurs !");
+    }
+}
+
+function exit(){
+    if (confirm("Veux-tu vraiment quitter la partie ?")){
+        players_list = [];
+        delCookie("players_list");
+        document.getElementById("game_player_container").innerHTML = "";
+        document.getElementById("home").style.display = "block";
+        document.getElementById("game").style.display = "none";
     }
 }
 

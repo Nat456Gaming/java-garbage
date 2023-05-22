@@ -32,6 +32,6 @@ function getCookie(cName) {
  * @param {string} cName - the name of the cookie
  */
 function delCookie(cName) {
-	document.cookie = cName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/html";
+	document.cookie = cName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     return ;
 }

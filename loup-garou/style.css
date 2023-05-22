@@ -156,3 +156,15 @@ input[type="range"]::-moz-range-thumb {
     border-radius: 5px;
     border: solid black 2px;
 }
+
+#game button#exit_button{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    padding: 0;
+}
+
+#game img#exit_img{
+    width: 25px;
+    height: 25px;
+}
