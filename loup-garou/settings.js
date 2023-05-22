@@ -36,7 +36,7 @@ function update(){
     if (players != old_players){
         players = Math.round(players);
         if (players > max_players) players = players % 10;
-        if (players < min_players) players = players + 10;
+        if (players < min_players) players = 4; //players + 10;
         document.getElementById('players_number').value = players;
         old_players = players;
         setCookie("player_number",players);
@@ -79,12 +79,12 @@ function update(){
         if (name !== old_players_names[pos]){
             if (name.includes(";")){
                 document.getElementById(id).value = old_players_names[pos]
-            }else{
-                old_players_names[pos] = name;
-                let names = JSON.parse(getCookie("player_names"));
-                names[pos] = name;
-                setCookie("player_names",JSON.stringify(names));
+                name = old_players_names[pos]
             }
+            old_players_names[pos] = name;
+            let names = JSON.parse(getCookie("player_names"));
+            names[pos] = name;
+            setCookie("player_names",JSON.stringify(names));
         }
     });
 }
