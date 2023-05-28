@@ -1,4 +1,4 @@
-var roles_file=[
+const roles_file=[
     [
         ["wolf","wolf","villager","villager"],
         ["wolf","psyshic","villager","guard"],

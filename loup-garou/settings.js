@@ -16,12 +16,13 @@ window.onload = () => {
     update();
     if(getCookie("players_list")){
         players_list = JSON.parse(getCookie("players_list"));
+        current_roles = JSON.parse(getCookie("current_roles"));
         start_game(true);
     }
 };
 
 let players_list = [];
-let current_roles = [];
+var current_roles = [];
 
 let old_game_style = 0;
 let old_players = 0;
@@ -102,13 +103,13 @@ function start_game(reload = false){
     }
     if (test){
         if(! reload){
-            current_roles = roles_file[0][0];
-            console.log(current_roles);
+            roles_file[8-min_roles][document.getElementById("game_style").value].forEach(value => current_roles.push(value));
+            setCookie("current_roles",JSON.stringify(current_roles));
             players_list = [];
             for (let i = 1; i <= document.getElementById('players_number').value; i++) {
                 let player = {
                     name : String(document.getElementById('player'+i).value),
-                    role : "wolf",
+                    role : give_role(),
                     lifes : Number(document.getElementById("roles_number").value)-1,
                     is_killed : false,
                     is_protected : false,
@@ -133,7 +134,9 @@ function start_game(reload = false){
 function exit(){
     if (confirm("Veux-tu vraiment quitter la partie ?")){
         players_list = [];
+        current_roles = [];
         delCookie("players_list");
+        delCookie("current_roles");
         document.getElementById("game_player_container").innerHTML = "";
         document.getElementById("home").style.display = "block";
         document.getElementById("game").style.display = "none";
@@ -141,7 +144,7 @@ function exit(){
 }
 
 function reload_game_style(quantity){
-    document.getElementById("game_style").max = roles_file[quantity].length;
+    document.getElementById("game_style").max = roles_file[quantity-min_roles].length;
 }
 
 

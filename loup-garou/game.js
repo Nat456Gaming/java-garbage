@@ -56,9 +56,7 @@ function is_game_finished(){
     players_list.forEach(player => {
         if (player.role == "wolf" || player.is_infected) village_winning = false;
         else if (player.role) wolves_winning = false;
-        if (player.role){
-            alive.push(player.name);
-        }
+        if (player.role) alive.push(player.name);
     });
     if (alive.length == 1) return alive[0];
     if (village_winning) return "village";
@@ -79,9 +77,7 @@ function kill(nb_player, try_married = true){
             player.role = "---new_role---";
             if (! is_game_finished) break;
         }
-    }else{
-        player.role = false;
-    }
+    }else player.role = false;
     players_list[nb_player-1] = player;
     game_end(is_game_finished());
     if (player.married_to){
@@ -107,7 +103,20 @@ function random(list){
     return ;
 }
 
+function give_role(){
+    let role = "";
+    for (let i = 0; i <= 30; i++){
+        role = random(current_roles);
+        if (! is_game_finished) break;
+        console.log("role");
+    }
+    current_roles.splice(current_roles.indexOf(role), 1);
+    save_players();
+    return role;
+}
+
 function save_players(){
     setCookie("players_list",JSON.stringify(players_list));
+    setCookie("current_roles",JSON.stringify(current_roles));
     return JSON.parse(getCookie("players_list"));
 }
