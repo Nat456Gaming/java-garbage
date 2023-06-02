@@ -103,7 +103,8 @@ function start_game(reload = false){
     }
     if (test){
         if(! reload){
-            roles_file[8-min_roles][document.getElementById("game_style").value].forEach(value => current_roles.push(value));
+            //roles_file_old[8-min_roles][document.getElementById("game_style").value].forEach(value => current_roles.push(value));
+            for (i = 0; i < 5; i++) current_roles.push(roles_file[document.getElementById("game_style").value-1][i]);
             setCookie("current_roles",JSON.stringify(current_roles));
             players_list = [];
             for (let i = 1; i <= document.getElementById('players_number').value; i++) {
