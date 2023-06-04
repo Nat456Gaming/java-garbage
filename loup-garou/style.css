@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(255, 255, 255);
+    background-color: var(--background-color);
     overflow-x: hidden;
     overflow-y: hidden;
     margin: 0;
@@ -132,6 +132,14 @@ input[type="range"]::-moz-range-thumb {
 }
 
 
+:root {
+    --foreground-color: black;
+    --background-color: white;
+}
+
+#game svg#exit_img{
+    fill: var(--foreground-color);
+}
 
 #game div.div-btn-player{
     position: absolute;
@@ -150,11 +158,12 @@ input[type="range"]::-moz-range-thumb {
 
 #game h2.player-name{
     margin-top: 5px;
+    color: var(--foreground-color)
 }
 
 #game button#center_button {
     border-radius: 5px;
-    border: solid black 2px;
+    border: solid var(--foreground-color) 2px;
 }
 
 #game button#exit_button{
@@ -164,7 +173,11 @@ input[type="range"]::-moz-range-thumb {
     padding: 0;
 }
 
-#game img#exit_img{
+#game svg#exit_img{
     width: 25px;
     height: 25px;
+}
+
+#game h1#center_button_text{
+    color: var(--foreground-color)
 }

@@ -11,6 +11,7 @@ function center_button(){
         case 0:
             document.getElementById("center_button").style.display = "none";
             step = 1;
+            daytime();
             break;
         case 1:
             //do nothing
@@ -73,10 +74,7 @@ function kill(nb_player, try_married = true){
     let player = players_list[nb_player-1]
     if (player.lifes > 0){
         player.lifes --;
-        for (let i = 0; i <= 30; i++){
-            player.role = "---new_role---";
-            if (! is_game_finished) break;
-        }
+        player.role = give_role();
     }else player.role = false;
     players_list[nb_player-1] = player;
     game_end(is_game_finished());
@@ -100,7 +98,7 @@ function game_end(winner){
  */
 function random(list){
     if (typeof list === "object") return list[Math.floor(Math.random()*list.length)];
-    return ;
+    return false;
 }
 
 function give_role(){
@@ -108,7 +106,6 @@ function give_role(){
     for (let i = 0; i <= 30; i++){
         role = random(current_roles);
         if (! is_game_finished) break;
-        console.log("role");
     }
     current_roles.splice(current_roles.indexOf(role), 1);
     save_players();
@@ -119,4 +116,14 @@ function save_players(){
     setCookie("players_list",JSON.stringify(players_list));
     setCookie("current_roles",JSON.stringify(current_roles));
     return JSON.parse(getCookie("players_list"));
+}
+
+function daytime(time = step){
+    if(time == 1){
+        document.documentElement.style.setProperty('--foreground-color', "white");
+        document.documentElement.style.setProperty('--background-color', "black");
+    }else{
+        document.documentElement.style.setProperty('--foreground-color', "black");
+        document.documentElement.style.setProperty('--background-color', "white");
+    }
 }

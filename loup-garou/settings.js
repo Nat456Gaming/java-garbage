@@ -5,6 +5,7 @@ const max_roles = 20;
 const min_roles = 8;
 
 window.onload = () => {
+    document.getElementById("game_style").max = roles_file.length;
     if(getCookie("player_number")) document.getElementById('players_number').value = Number(getCookie("player_number"));
     if(getCookie("roles_per_player")) document.getElementById('roles_number').value = Number(getCookie("roles_per_player"));
     if(getCookie("game_style")) document.getElementById('game_style').value = Number(getCookie("game_style"));
@@ -17,21 +18,26 @@ window.onload = () => {
     if(getCookie("players_list")){
         players_list = JSON.parse(getCookie("players_list"));
         current_roles = JSON.parse(getCookie("current_roles"));
+        step = JSON.parse(getCookie("step"));
         start_game(true);
     }
+    setInterval(() => { update(); }, 100);
 };
 
 let players_list = [];
-var current_roles = [];
+let current_roles = [];
 
 let old_game_style = 0;
 let old_players = 0;
 let old_roles = 0;
 let old_players_names = [];
 let setup_list = [];
-setInterval(() => { update(); }, 100);
 
 function update(){
+    ["players_list","current_roles","step"].forEach(variable =>{
+        eval('if ('+variable+' != JSON.parse(getCookie("'+variable+'"))) setCookie("'+variable+'",JSON.stringify('+variable+'));');
+        if(variable == "step") daytime();
+    });
     let players = document.getElementById('players_number').value;
     let roles = document.getElementById('roles_number').value;
     let game_style = document.getElementById("game_style").value;
@@ -57,9 +63,8 @@ function update(){
             setup_list.push("player"+i);
         }
         setup_list.forEach((id,pos) => {
-            if(getCookie("player_names")) document.getElementById(id).value = JSON.parse(getCookie("player_names"))[pos];
+            document.getElementById(id).value = JSON.parse(getCookie("player_names"))[pos];
         })
-        //reload_game_style(players*roles);
     }
     
     if (roles != old_roles){
@@ -71,7 +76,6 @@ function update(){
         document.getElementById('roles_number').value = roles;
         old_roles = roles;
         setCookie("roles_per_player",roles);
-        //reload_game_style(players*roles);
     }
 
     if (game_style != old_game_style){
@@ -103,7 +107,6 @@ function start_game(reload = false){
     }
     if (test){
         if(! reload){
-            //roles_file_old[8-min_roles][document.getElementById("game_style").value].forEach(value => current_roles.push(value));
             for (i = 0; i < 5; i++) current_roles.push(roles_file[document.getElementById("game_style").value-1][i]);
             setCookie("current_roles",JSON.stringify(current_roles));
             players_list = [];
@@ -136,18 +139,16 @@ function exit(){
     if (confirm("Veux-tu vraiment quitter la partie ?")){
         players_list = [];
         current_roles = [];
+        step = 0;
         delCookie("players_list");
         delCookie("current_roles");
-        document.getElementById("game_player_container").innerHTML = "";
+        delCookie("step");
+        document.getElementById("game_player_container").innerHTML = "<!-- PLAYERS CARDS GENERATED IN JS -->";
         document.getElementById("home").style.display = "block";
         document.getElementById("game").style.display = "none";
+        daytime(0);
     }
 }
-
-function reload_game_style(quantity){
-    document.getElementById("game_style").max = roles_file[quantity-min_roles].length;
-}
-
 
 
 function create_card(player,total){
