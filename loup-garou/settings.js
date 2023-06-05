@@ -34,9 +34,8 @@ let old_players_names = [];
 let setup_list = [];
 
 function update(){
-    ["players_list","current_roles","step"].forEach(variable =>{
-        eval('if ('+variable+' != JSON.parse(getCookie("'+variable+'"))) setCookie("'+variable+'",JSON.stringify('+variable+'));');
-        if(variable == "step") daytime();
+    ["players_list","current_roles","step","current_roles"].forEach(variable =>{
+        eval('if (JSON.stringify('+variable+') != getCookie("'+variable+'") && '+variable+' != "" ) setCookie("'+variable+'",JSON.stringify('+variable+'));');
     });
     let players = document.getElementById('players_number').value;
     let roles = document.getElementById('roles_number').value;
@@ -49,8 +48,8 @@ function update(){
         document.getElementById('players_number').value = players;
         old_players = players;
         setCookie("player_number",players);
-        if (players*roles < min_roles) document.getElementById('roles_number').value = 2
-        if (players*roles > max_roles) document.getElementById('roles_number').value = 2
+        if (players*roles < min_roles) document.getElementById('roles_number').value = 2;
+        if (players*roles > max_roles) document.getElementById('roles_number').value = 2;
 
         setup_list = [];
         document.getElementById("players_container").innerHTML = '';
@@ -63,7 +62,7 @@ function update(){
             setup_list.push("player"+i);
         }
         setup_list.forEach((id,pos) => {
-            document.getElementById(id).value = JSON.parse(getCookie("player_names"))[pos];
+            if (getCookie("player_names")) document.getElementById(id).value = JSON.parse(getCookie("player_names"))[pos];
         })
     }
     
@@ -79,16 +78,16 @@ function update(){
     }
 
     if (game_style != old_game_style){
-        setCookie("game_style",game_style)
-        old_game_style = game_style
+        setCookie("game_style",game_style);
+        old_game_style = game_style;
     }
 
     setup_list.forEach((id,pos) => {
-        let name = document.getElementById(id).value
+        let name = document.getElementById(id).value;
         if (name !== old_players_names[pos]){
             if (name.includes(";")){
-                document.getElementById(id).value = old_players_names[pos]
-                name = old_players_names[pos]
+                document.getElementById(id).value = old_players_names[pos];
+                name = old_players_names[pos];
             }
             old_players_names[pos] = name;
             let names = JSON.parse(getCookie("player_names"));
@@ -99,21 +98,22 @@ function update(){
 }
 
 function start_game(reload = false){
-    let test = true
+    let test = true;
     for (let i = 1; i <= document.getElementById('players_number').value; i++) {
         if (! document.getElementById('player'+i).value){
-            test = false
+            test = false;
         }
     }
     if (test){
         if(! reload){
             for (i = 0; i < 5; i++) current_roles.push(roles_file[document.getElementById("game_style").value-1][i]);
-            setCookie("current_roles",JSON.stringify(current_roles));
+            //setCookie("current_roles",JSON.stringify(current_roles));
             players_list = [];
             for (let i = 1; i <= document.getElementById('players_number').value; i++) {
                 let player = {
                     name : String(document.getElementById('player'+i).value),
-                    role : give_role(),
+                    role : give_role(true),
+                    new_role : true,
                     lifes : Number(document.getElementById("roles_number").value)-1,
                     is_killed : false,
                     is_protected : false,
@@ -146,6 +146,7 @@ function exit(){
         document.getElementById("game_player_container").innerHTML = "<!-- PLAYERS CARDS GENERATED IN JS -->";
         document.getElementById("home").style.display = "block";
         document.getElementById("game").style.display = "none";
+        document.getElementById("center_button").style.display = "block";
         daytime(0);
     }
 }
@@ -167,30 +168,30 @@ function create_card(player,total){
 }
 
 function square_coord(player, total, Width, Height){
-    let W = Width
-    let H = Height
+    let W = Width;
+    let H = Height;
     if (W<=H){
-        W = Height
-        H = Width
+        W = Height;
+        H = Width;
     }
-    let x = W/Math.round(total/2)*(player-Math.round(total/2)/2-0.5)
+    let x = W/Math.round(total/2)*(player-Math.round(total/2)/2-0.5);
     let y = -H/3.5;
     let angle = 0;
     if (player > Math.round(total/2)){
-        x = W/(total-Math.round(total/2))*(player-Math.round(total/2)-(total-Math.round(total/2))/2-0.5)
+        x = W/(total-Math.round(total/2))*(player-Math.round(total/2)-(total-Math.round(total/2))/2-0.5);
         y = H/3.5;
         angle = Math.PI;
     }
     if (Width>=Height){
         return [x,y,angle];
     }else{
-        document.getElementById("center_button").style.transform = "rotate("+String(Math.PI/2)+"rad)"
+        document.getElementById("center_button").style.transform = "rotate("+String(Math.PI/2)+"rad)";
         return [y,x,angle+Math.PI/2];
     } 
 }
 
 function calc_scale(W, H){
-    return W*H/2061400+5/22
+    return W*H/2061400+5/22;
 }
 
 /*

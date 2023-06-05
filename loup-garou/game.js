@@ -75,14 +75,13 @@ function kill(nb_player, try_married = true){
     if (player.lifes > 0){
         player.lifes --;
         player.role = give_role();
+        if (player.role) player.new_role = true;
     }else player.role = false;
-    players_list[nb_player-1] = player;
     game_end(is_game_finished());
     if (player.married_to){
         if (try_married) kill(player.married_to,false);
-        else save_players();
         player.married_to = 0
-    }else save_players();
+    }
     return player.role;
 }
 
@@ -101,15 +100,16 @@ function random(list){
     return false;
 }
 
-function give_role(){
+function give_role(beginning = false){
     let role = "";
     for (let i = 0; i <= 30; i++){
         role = random(current_roles);
-        if (! is_game_finished) break;
+        if (!is_game_finished() || beginning){
+            current_roles.splice(current_roles.indexOf(role), 1);
+            return role;
+        }
     }
-    current_roles.splice(current_roles.indexOf(role), 1);
-    save_players();
-    return role;
+    return false;
 }
 
 function save_players(){
