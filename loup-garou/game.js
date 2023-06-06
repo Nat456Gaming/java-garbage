@@ -3,7 +3,6 @@ let night = "wolf";
 
 function start(){
     step = 0;
-    console.log("game started !");
 }
 
 function center_button(){
@@ -50,7 +49,7 @@ function player_pressed(player){
 /**
  * @return {string} Return who won (false if nobody)
  */
-function is_game_finished(){
+function is_game_finished(newrole = false){
     let village_winning = true;
     let wolves_winning = true;
     let alive = [];
@@ -59,6 +58,10 @@ function is_game_finished(){
         else if (player.role) wolves_winning = false;
         if (player.role) alive.push(player.name);
     });
+    if (newrole){
+        if (newrole == "wolf") village_winning = false;
+        else wolves_winning = false;
+    }
     if (alive.length == 1) return alive[0];
     if (village_winning) return "village";
     if (wolves_winning) return "wolves";
@@ -72,6 +75,7 @@ function is_game_finished(){
  */
 function kill(nb_player, try_married = true){
     let player = players_list[nb_player-1]
+    player.is_infected = false;
     if (player.lifes > 0){
         player.lifes --;
         player.role = give_role();
@@ -96,26 +100,19 @@ function game_end(winner){
  * @return {} A random object in the array
  */
 function random(list){
-    if (typeof list === "object") return list[Math.floor(Math.random()*list.length)];
-    return false;
+    return list[Math.floor(Math.random()*list.length)];
 }
 
 function give_role(beginning = false){
     let role = "";
     for (let i = 0; i <= 30; i++){
         role = random(current_roles);
-        if (!is_game_finished() || beginning){
+        if ((! is_game_finished(role)) || beginning){
             current_roles.splice(current_roles.indexOf(role), 1);
             return role;
         }
     }
     return false;
-}
-
-function save_players(){
-    setCookie("players_list",JSON.stringify(players_list));
-    setCookie("current_roles",JSON.stringify(current_roles));
-    return JSON.parse(getCookie("players_list"));
 }
 
 function daytime(time = step){

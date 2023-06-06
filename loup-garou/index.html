@@ -18,7 +18,7 @@
                 <h3>Style de partie:</h3>
                 <div id="game_style_container">
                     <h3>Débat</h3>
-                    <input type="range" id="game_style" aria-label="Style de partie" min="1" max="3" value="2">
+                    <input type="range" id="game_style" aria-label="Style de partie" min="1" max="1" value="2">
                     <h3>Action</h3>
                 </div>
                 <table id="settings_container"><tbody>
@@ -29,18 +29,18 @@
                     </tr>
                     <tr>
                         <td><h3>Nombre de roles par joueur</h3></td>
-                        <td><input type="number" id="roles_number" aria-label="Nombre de roles par joueur" min="1" max="1" value="1"></td>
+                        <td><input type="number" id="roles_number" aria-label="Nombre de roles par joueur" min="1" max="3" value="1"></td>
                     </tr>
                 </tbody></table>
                 <div id="players_container">
                     <!-- PLAYERS INPUTS GENERATED IN JS -->
                 </div>
-                <button type="submit" onclick="start_game(); return false;" id="start"><h2>Start</h2></button>
+                <button type="submit" onclick="start_game(); return false;" id="start"><h2>Commencer</h2></button>
             </div>
         </section>
         <section id="game" class="pages" style="display:none;">
             <div id="game_container" class="center">
-                <button type="button" onclick="center_button()" id="center_button"><h1 id="center_button_text">Next</h1></button>
+                <button type="button" onclick="center_button()" id="center_button"><h1 id="center_button_text">Suivant</h1></button>
             </div>
             <div id="game_player_container">
                 <!-- PLAYERS CARDS GENERATED IN JS -->
