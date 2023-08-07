@@ -1,4 +1,4 @@
-const file = './Compiler/programme.txt';
+const file = 'programme.txt';
 
 const contentFile = require('fs').readFileSync(file, "utf-8");
 const lines = contentFile.split('\n');
@@ -97,7 +97,7 @@ function calc(line){
                 return out;
             }else{
                 let input = line.substring(line.indexOf("=")+1).trim();
-                return [upcode(false,10,[input,0]),input,0,output];
+                return [upcode(false,10,[input,"0"]),input,0,output];
             }
         }
     }
@@ -133,7 +133,7 @@ function concat(cond,sign,line){
 
 /**
  * @param {boolean} call - Is a call or not
- * @param {string} operator - value to bigin with
+ * @param {string} operator - value to begin with
  * @param {object} values - the 2 input values in an array
  * @return {number} The UPCODE
  */
@@ -149,5 +149,5 @@ function upcode(call,operator,values){
  * @return {boolean} Is the input a number
  */
 function isnumber(input){
-    return "01234567879".includes(input);
+    return "01234567879".includes(input[0]);
 }
