@@ -51,6 +51,10 @@ function decodeline(line){
         return ["Call",first,0,0];
     }else if(line.includes("}")){
         return ["Ret",0,0,0];
+    }else if(line.includes("save")){
+        return ["Save",0,0,0];
+    }else if(line.includes("get")){
+        return ["Save",0,0,143];
     }else if(line.includes("interrupt")){
         let first = line.substring(9).trim();
         return [202,first,"0","reg_rupt"];
