@@ -68,7 +68,7 @@ function decodeline(line){
  * @return {object} The output line in an array
  */
 function calc(line){
-    let sign = ["&&","!&","||","!|","^^","!^",">>","<<","!>","!<","++","--","**","*+","//"];
+    let sign = ["&&","!&","||","!|","^^","!^",">>","<<","!>","!<","++","--","**","%%","//"];
     let out = [];
     let done = false;
     sign.forEach((value,index) =>{

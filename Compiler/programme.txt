@@ -17,38 +17,49 @@ down{
     display -= 1
 }
 
-reg0 = 4
-reg1 = 0
-reg2 = 1
-reg3 = 2
+
+# 0: disk_nr
+# 1: source
+# 2: dest
+# 3: spare
+reg0 = ext
+reg1 = ext
+reg2 = ext
+reg3 = ext
 Call move
 
 move{
+    Save
     goif reg0 == 0: action
     if reg0 == 0: true
-
-    Save
     reg0 -= 1
     reg4 = reg3
     reg3 = reg2
     reg2 = reg4
     Call move
-    Get
     Call action
-    Save
-    reg0 -= 1
-    reg4 = reg1
-    reg1 = reg3
-    reg3 = reg4
+    reg4 = reg2
+    reg2 = reg3
+    reg3 = reg1
+    reg1 = reg4
     Call move
-    Get
-
     def true
+    Get
 }
 
 action{
+    stack = reg0
+    stack = reg1
+    stack = reg2
+    stack = reg3
+    Get
     ext = reg1
     ext = 5
     ext = reg2
     ext = 5
+    Save
+    reg3 = stack
+    reg2 = stack
+    reg1 = stack
+    reg0 = stack
 }
