@@ -1,0 +1,65 @@
+Interrupt interrupt
+
+def loop
+    reg0 = 0
+goto loop
+
+interrupt {
+    goif 70 == reg4 : up
+    goif 72 == reg4 : down
+}
+
+up {
+    display += 1
+}
+
+down{
+    display -= 1
+}
+
+
+# 0: disk_nr
+# 1: source
+# 2: dest
+# 3: spare
+reg0 = ext
+reg1 = ext
+reg2 = ext
+reg3 = ext
+Call move
+
+move{
+    Save
+    goif reg0 == 0: action
+    if reg0 == 0: true
+    reg0 -= 1
+    reg4 = reg3
+    reg3 = reg2
+    reg2 = reg4
+    Call move
+    Call action
+    reg4 = reg2
+    reg2 = reg3
+    reg3 = reg1
+    reg1 = reg4
+    Call move
+    def true
+    Get
+}
+
+action{
+    stack = reg0
+    stack = reg1
+    stack = reg2
+    stack = reg3
+    Get
+    ext = reg1
+    ext = 5
+    ext = reg2
+    ext = 5
+    Save
+    reg3 = stack
+    reg2 = stack
+    reg1 = stack
+    reg0 = stack
+}
