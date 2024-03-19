@@ -1,13 +1,19 @@
-add: +
-minus: -
-AND: &
-OR: |
+add: ++
+minus: --
+AND: &&
+NAND: !&
+OR: ||
+NOR: !|
+XOR: ^^
+XNOR: !^
+SHR: >>
+SHL: <<
+ROR: !>
+ROL: !<
 NOT: !
-XOR: ^
-SHR: >
-SHL: <
-MUL: *
-MUL HIGH: µ
+MUL: **
+DIV: //
+MOD: %%
 
 equal: ==
 not equal: !=
